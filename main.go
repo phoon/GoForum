@@ -35,7 +35,7 @@ func main() {
 	store := sessions.NewCookieStore([]byte(config.Fields.GinSessionKey))
 	store.Options(sessions.Options{
 		Path:     "/",
-		MaxAge:   1296000, //15 dys
+		MaxAge:   1296000, //15 days
 		HttpOnly: true,
 	})
 	gob.Register(&model.LoginInfo{}) //register for securecookie

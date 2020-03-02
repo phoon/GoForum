@@ -12,8 +12,8 @@ import (
 )
 
 var (
-	db   *gorm.DB
-	err  error
+	db    *gorm.DB
+	err   error
 	_once sync.Once
 )
 
@@ -41,6 +41,14 @@ func initDB() {
 
 	db.Model(&model.Comment{}).AddForeignKey("user_id", "users(id)", "CASCADE", "CASCADE")
 	db.Model(&model.Comment{}).AddForeignKey("topic_id", "topics(id)", "CASCADE", "CASCADE")
+
+	db.Table("user_followers").AddForeignKey("user_id", "users(id)", "CASCADE", "CASCADE")
+	db.Table("user_followers").AddForeignKey("follower_id", "users(id)", "CASCADE", "CASCADE")
+	db.Table("user_following").AddForeignKey("user_id", "users(id)", "CASCADE", "CASCADE")
+	db.Table("user_following").AddForeignKey("following_id", "users(id)", "CASCADE", "CASCADE")
+
+	db.Table("user_liked_topics").AddForeignKey("user_id", "users(id)", "CASCADE", "CASCADE")
+	db.Table("user_liked_topics").AddForeignKey("topic_id", "topics(id)", "CASCADE", "CASCADE")
 }
 
 func Start() {
