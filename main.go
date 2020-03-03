@@ -7,7 +7,8 @@ import (
 	"os"
 
 	"github.com/gin-contrib/pprof"
-	"github.com/gin-gonic/contrib/sessions"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"github.com/phoon/go-forum/config"
 	"github.com/phoon/go-forum/handler/router"
@@ -32,7 +33,7 @@ func main() {
 	gin.DefaultWriter = io.MultiWriter(logf)
 
 	//use cookie to store session
-	store := sessions.NewCookieStore([]byte(config.Fields.GinSessionKey))
+	store := cookie.NewStore([]byte(config.Fields.GinSessionKey))
 	store.Options(sessions.Options{
 		Path:     "/",
 		MaxAge:   1296000, //15 days
